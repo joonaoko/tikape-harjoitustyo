@@ -3,10 +3,14 @@ package tikape.runko.domain;
 public class Kysymys {
     
     private Integer id;
+    private String kurssi;
+    private String aihe;
     private String kysymysteksti;
     
-    public Kysymys(Integer id, String kysymysteksti) {
+    public Kysymys(Integer id, String kurssi, String aihe, String kysymysteksti) {
         this.id = id;
+        this.kurssi = kurssi;
+        this.aihe = aihe;
         this.kysymysteksti = kysymysteksti;
     }
     
