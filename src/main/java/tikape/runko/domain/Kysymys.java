@@ -18,6 +18,14 @@ public class Kysymys {
         return id;
     }
     
+    public String getKurssi() {
+        return kurssi;
+    }
+    
+    public String getAihe() {
+        return aihe;
+    }
+    
     public void setId(Integer id) {
         this.id = id;
     }
