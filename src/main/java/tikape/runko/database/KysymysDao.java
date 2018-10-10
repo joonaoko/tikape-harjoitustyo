@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tikape.runko.database;
 
 import java.sql.Connection;
@@ -58,7 +54,7 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String kurssi = rs.getString("kurssi");
-            String aihe = rs.getString("aihesteksti");
+            String aihe = rs.getString("aihe");
             String kysymysteksti = rs.getString("kysymysteksti");
 
             kysymykset.add(new Kysymys(id, kurssi, aihe, kysymysteksti));
