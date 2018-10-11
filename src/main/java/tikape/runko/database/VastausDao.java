@@ -18,6 +18,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         this.database = database;
     }
     
+    /*
     public static Connection getConnection() throws SQLException {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         if (dbUrl != null && dbUrl.length() > 0) {
@@ -25,10 +26,11 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         }
         return DriverManager.getConnection("jdbc:sqlite:db/database.db");
     }
+    */
 
     @Override
     public Vastaus findOne(Integer key) throws SQLException {
-        Connection connection = getConnection(); // database.getConnection();
+        Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE id = ?");
         stmt.setObject(1, key);
 
@@ -55,7 +57,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     @Override
     public List<Vastaus> findAll() throws SQLException {
 
-        Connection connection = getConnection(); // database.getConnection();
+        Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus");
 
         ResultSet rs = stmt.executeQuery();
@@ -77,7 +79,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     }
     
     public List<Vastaus> findAll(Integer kysymysid) throws SQLException {
-        Connection connection = getConnection(); // database.getConnection();
+        Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE kysymys_id = ?");
         
         stmt.setInt(1, kysymysid);
@@ -105,7 +107,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     }
     
     private void save(Vastaus vastaus) throws SQLException {
-        Connection connection = getConnection(); // database.getConnection();
+        Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Vastaus"
                 + "(kysymys_id, vastausteksti, oikein)"
@@ -122,7 +124,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        Connection connection = getConnection(); // database.getConnection();
+        Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM Vastaus WHERE id = ?");
         
