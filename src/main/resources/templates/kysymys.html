@@ -24,7 +24,7 @@
         <br/>
         <h3>Luo uusi vastaus</h3>
         <form method="POST" th:action="@{~/kysymykset/{kysymysid}(kysymysid=${kysymys.id})}">
-            <input type="text" name="vastausteksti" maxlength="1000"/><br/>
+            <input type="text" name="vastausteksti" maxlength="1000" required="required"/><br/>
             <input type="checkbox" name="oikein"/> Oikein<br/>
             <input type="submit" value="Luo vastaus"/>
         </form>
