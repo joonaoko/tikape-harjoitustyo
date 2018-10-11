@@ -9,6 +9,7 @@ import tikape.runko.database.Database;
 import tikape.runko.database.KysymysDao;
 import tikape.runko.database.VastausDao;
 import tikape.runko.domain.Kysymys;
+import tikape.runko.domain.Vastaus;
 
 public class Main {
 
@@ -55,6 +56,18 @@ public class Main {
         post("/kysymykset/delete/:id", (req, res) -> {
             kysymysDao.delete(Integer.parseInt(req.params(":id")));
             res.redirect("/kysymykset");
+            return "";
+        });
+        
+        post("/kysymykset/:id", (req, res) -> {
+            String vastausteksti = req.queryParams("vastausteksti");
+            Boolean oikein = false;
+            if (req.queryParams("oikein") != null) oikein = true;
+            Integer kysymysid = Integer.parseInt(req.params(":id"));
+            Vastaus vastaus = new Vastaus(kysymysid, vastausteksti, oikein);
+            
+            vastausDao.saveOrUpdate(vastaus);
+            res.redirect("/kysymykset/"+req.params(":id"));
             return "";
         });
     }

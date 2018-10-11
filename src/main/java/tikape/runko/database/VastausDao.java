@@ -30,10 +30,11 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         }
 
         Integer id = rs.getInt("id");
+        Integer kysymysid = rs.getInt("kysymys_id");
         String vastausteksti = rs.getString("vastausteksti");
         Boolean oikein = rs.getBoolean("oikein");
 
-        Vastaus v = new Vastaus(id, vastausteksti, oikein);
+        Vastaus v = new Vastaus(id, kysymysid, vastausteksti, oikein);
 
         rs.close();
         stmt.close();
@@ -52,10 +53,11 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         List<Vastaus> vastaukset = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
+            Integer kysymysid = rs.getInt("kysymys_id");
             String vastausteksti = rs.getString("vastausteksti");
             Boolean oikein = rs.getBoolean("oikein");
 
-            vastaukset.add(new Vastaus(id, vastausteksti, oikein));
+            vastaukset.add(new Vastaus(id, kysymysid, vastausteksti, oikein));
         }
 
         rs.close();
@@ -78,7 +80,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
             String vastausteksti = rs.getString("vastausteksti");
             Boolean oikein = rs.getBoolean("oikein");
 
-            vastaukset.add(new Vastaus(id, vastausteksti, oikein));
+            vastaukset.add(new Vastaus(id, kysymysid, vastausteksti, oikein));
         }
 
         rs.close();
@@ -93,8 +95,20 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         save(vastaus);
     }
     
-    private void save(Vastaus vastaus) {
+    private void save(Vastaus vastaus) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(
+                "INSERT INTO Vastaus"
+                + "(kysymys_id, vastausteksti, oikein)"
+                + "VALUES (?, ?, ?)");
         
+        stmt.setInt(1, vastaus.getKysymysId());
+        stmt.setString(2, vastaus.getVastausteksti());
+        stmt.setBoolean(3, vastaus.getOikein());
+        
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
     }
 
     @Override
