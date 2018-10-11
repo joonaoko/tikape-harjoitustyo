@@ -23,9 +23,9 @@
         <br/>
         <h3>Luo uusi kysymys</h3>
         <form method="POST" action="/kysymykset">
-            <input type="text" name="kurssi"/><br/>
-            <input type="text" name="aihe"/><br/>
-            <input type="text" name="kysymysteksti"/><br/>
+            Kurssi: <input type="text" name="kurssi" maxlength="255"/><br/>
+            Aihe: <input type="text" name="aihe" maxlength="255"/><br/>
+            Kysymysteksti: <input type="text" name="kysymysteksti" maxlength="1000"/><br/>
             <input type="submit" value="Luo kysymys"/>
         </form>
     </body>
