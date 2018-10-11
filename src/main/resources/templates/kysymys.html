@@ -16,7 +16,7 @@
             <li th:each="vastaus: ${vastaukset}">
                 <span th:text="${vastaus.vastausteksti}"></span><br/>
                 <span th:text="${vastaus.oikein}"></span><br/>
-                <form th:action="@{~/kysymykset/{kysymysid}(kysymysid=${kysymys.id})/delete/{id}(id=${vastaus.id})}" method="POST">
+                <form th:action="@{~/kysymykset/{kysymysid}/delete/{id}(kysymysid=${kysymys.id}, id=${vastaus.id})}" method="POST">
                     <input type="submit" value="Poista"/>
                 </form>
             </li>

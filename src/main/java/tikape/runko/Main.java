@@ -70,5 +70,11 @@ public class Main {
             res.redirect("/kysymykset/"+req.params(":id"));
             return "";
         });
+        
+        post("/kysymykset/:kysymysid/delete/:id", (req, res) -> {
+           vastausDao.delete(Integer.parseInt(req.params(":id")));
+           res.redirect("/kysymykset/"+req.params(":kysymysid"));
+           return "";
+        });
     }
 }
