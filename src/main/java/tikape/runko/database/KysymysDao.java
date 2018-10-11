@@ -2,6 +2,7 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +17,18 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
     public KysymysDao(Database database) {
         this.database = database;
     }
+    
+    public static Connection getConnection() throws Exception {
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        if (dbUrl != null && dbUrl.length() > 0) {
+            return DriverManager.getConnection(dbUrl);
+        }
+        return DriverManager.getConnection("jdbc:sqlite:db/database.db");
+    }
 
     @Override
     public Kysymys findOne(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
+        Connection connection = getConnection(); // database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys WHERE id = ?");
         stmt.setObject(1, key);
 
@@ -46,7 +55,7 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
     @Override
     public List<Kysymys> findAll() throws SQLException {
 
-        Connection connection = database.getConnection();
+        Connection connection = getConnection(); // database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys");
 
         ResultSet rs = stmt.executeQuery();
@@ -73,7 +82,7 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
     }
     
     private void save(Kysymys kysymys) throws SQLException {
-        Connection connection = database.getConnection();
+        Connection connection = getConnection(); // database.getConnection();
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Kysymys"
                 + "(kurssi, aihe, kysymysteksti)"
@@ -90,7 +99,7 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
+        Connection connection = getConnection(); // database.getConnection();
         PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM Kysymys WHERE id = ?");
         
