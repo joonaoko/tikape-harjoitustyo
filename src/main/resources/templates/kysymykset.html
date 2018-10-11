@@ -10,10 +10,23 @@
         
         <ol>
             <li th:each="kysymys: ${kysymykset}">
-                <span th:text="${kysymys.kurssi}"></span>
-                <span th:text="${kysymys.aihe}"></span>
-                <span th:text="${kysymys.kysymysteksti}"></span>
+                <span th:text="${kysymys.kurssi}"></span><br/>
+                <span th:text="${kysymys.aihe}"></span><br/>
+                <a th:href="@{~/kysymykset/{id}(id=${kysymys.id})}">
+                    <span th:text="${kysymys.kysymysteksti}"></span><br/>
+                </a>
+                <form th:action="@{~/kysymykset/delete/{id}(id=${kysymys.id})}" method="POST">
+                    <input type="submit" value="Poista"/>
+                </form>
             </li>
         </ol>
+        <br/>
+        <h3>Luo uusi kysymys</h3>
+        <form method="POST" action="/kysymykset">
+            <input type="text" name="kurssi"/><br/>
+            <input type="text" name="aihe"/><br/>
+            <input type="text" name="kysymysteksti"/><br/>
+            <input type="submit" value="Luo kysymys"/>
+        </form>
     </body>
 </html>

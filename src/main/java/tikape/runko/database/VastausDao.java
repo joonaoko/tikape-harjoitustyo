@@ -64,6 +64,38 @@ public class VastausDao implements Dao<Vastaus, Integer> {
 
         return vastaukset;
     }
+    
+    public List<Vastaus> findAll(Integer kysymysid) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE kysymys_id = ?");
+        
+        stmt.setInt(1, kysymysid);
+
+        ResultSet rs = stmt.executeQuery();
+        List<Vastaus> vastaukset = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
+            String vastausteksti = rs.getString("vastausteksti");
+            Boolean oikein = rs.getBoolean("oikein");
+
+            vastaukset.add(new Vastaus(id, vastausteksti, oikein));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return vastaukset;
+    }
+    
+     @Override
+    public void saveOrUpdate(Vastaus vastaus) throws SQLException {
+        save(vastaus);
+    }
+    
+    private void save(Vastaus vastaus) {
+        
+    }
 
     @Override
     public void delete(Integer key) throws SQLException {

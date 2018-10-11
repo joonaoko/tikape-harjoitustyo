@@ -7,6 +7,12 @@ public class Kysymys {
     private String aihe;
     private String kysymysteksti;
     
+    public Kysymys(String kurssi, String aihe, String kysymysteksti) {
+        this.kurssi = kurssi;
+        this.aihe = aihe;
+        this.kysymysteksti = kysymysteksti;
+    }
+    
     public Kysymys(Integer id, String kurssi, String aihe, String kysymysteksti) {
         this.id = id;
         this.kurssi = kurssi;

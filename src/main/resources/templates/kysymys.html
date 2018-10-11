@@ -1,11 +1,32 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kysymys</title>
+        <meta charset="UTF-8" />
     </head>
+    
     <body>
-        <div>TODO write content</div>
+        <span th:text="${kysymys.kurssi}"></span><br/>
+        <span th:text="${kysymys.aihe}"></span><br/>
+        <h2 th:text="${kysymys.kysymysteksti}">Kysymysteksti</h2>
+        
+        <h3>Vastaukset</h3>
+        
+        <ol>
+            <li th:each="vastaus: ${vastaukset}">
+                <span th:text="${vastaus.vastausteksti}"></span><br/>
+                <span th:text="${vastaus.oikein}"></span><br/>
+                <form th:action="@{~/kysymykset/{kysymysid}(kysymysid=${kysymys.id})/delete/{id}(id=${vastaus.id}]}" method="POST">
+                    <input type="submit" value="Poista"/>
+                </form>
+            </li>
+        </ol>
+        <br/>
+        <h3>Luo uusi vastaus</h3>
+        <form method="POST" action="/kysymys">
+            <input type="text" name="vastausteksti"/><br/>
+            <input type="checkbox" name="oikein"/> Oikein<br/>
+            <input type="submit" value="Luo kysymys"/>
+        </form>
     </body>
 </html>
