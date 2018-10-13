@@ -43,8 +43,9 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
         String kurssi = rs.getString("kurssi");
         String aihe = rs.getString("aihe");
         String kysymysteksti = rs.getString("kysymysteksti");
+        Boolean piilotettu = rs.getBoolean("piilotettu");
 
-        Kysymys k = new Kysymys(id, kurssi, aihe, kysymysteksti);
+        Kysymys k = new Kysymys(id, kurssi, aihe, kysymysteksti, piilotettu);
 
         rs.close();
         stmt.close();
@@ -66,8 +67,9 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
             String kurssi = rs.getString("kurssi");
             String aihe = rs.getString("aihe");
             String kysymysteksti = rs.getString("kysymysteksti");
+            Boolean piilotettu = rs.getBoolean("piilotettu");
 
-            kysymykset.add(new Kysymys(id, kurssi, aihe, kysymysteksti));
+            kysymykset.add(new Kysymys(id, kurssi, aihe, kysymysteksti, piilotettu));
         }
 
         rs.close();
@@ -86,12 +88,13 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Kysymys"
-                + "(kurssi, aihe, kysymysteksti)"
-                + "VALUES (?, ?, ?)");
+                + "(kurssi, aihe, kysymysteksti, piilotettu)"
+                + "VALUES (?, ?, ?, ?)");
         
         stmt.setString(1, kysymys.getKurssi());
         stmt.setString(2, kysymys.getAihe());
         stmt.setString(3, kysymys.getKysymysteksti());
+        stmt.setBoolean(4, kysymys.getPiilotettu());
         
         stmt.executeUpdate();
         stmt.close();

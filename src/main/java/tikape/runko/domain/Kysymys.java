@@ -6,11 +6,13 @@ public class Kysymys {
     private String kurssi;
     private String aihe;
     private String kysymysteksti;
+    private Boolean piilotettu;
     
     public Kysymys(String kurssi, String aihe, String kysymysteksti) {
         this.kurssi = kurssi;
         this.aihe = aihe;
         this.kysymysteksti = kysymysteksti;
+        this.piilotettu = true;
     }
     
     public Kysymys(Integer id, String kurssi, String aihe, String kysymysteksti) {
@@ -18,6 +20,15 @@ public class Kysymys {
         this.kurssi = kurssi;
         this.aihe = aihe;
         this.kysymysteksti = kysymysteksti;
+        this.piilotettu = true;
+    }
+    
+    public Kysymys(Integer id, String kurssi, String aihe, String kysymysteksti, Boolean piilotettu) {
+        this.id = id;
+        this.kurssi = kurssi;
+        this.aihe = aihe;
+        this.kysymysteksti = kysymysteksti;
+        this.piilotettu = piilotettu;
     }
     
     public Integer getId() {
@@ -42,5 +53,9 @@ public class Kysymys {
     
     public void SetKysymysteksti(String kysymysteksti) {
         this.kysymysteksti = kysymysteksti;
+    }
+    
+    public Boolean getPiilotettu() {
+        return this.piilotettu;
     }
 }

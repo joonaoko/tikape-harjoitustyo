@@ -22,7 +22,12 @@ public class Database {
     }
 
     public void init() {
-        List<String> lauseet = postgresqlLauseet();
+        List<String> lauseet = sqliteLauseet();
+        
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        if (dbUrl != null && dbUrl.length() > 0) {
+            lauseet = postgresqlLauseet();
+        }
 
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
@@ -44,10 +49,10 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-        lista.add("CREATE TABLE Kysymys (id integer PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000));");
+        lista.add("CREATE TABLE Kysymys (id integer PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000), piilotettu boolean);");
         lista.add("CREATE TABLE Vastaus (id integer PRIMARY KEY, kysymys_id integer, vastausteksti varchar(1000), oikein boolean, FOREIGN KEY (kysymys_id) REFERENCES Kysymys(id));");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?');");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?');");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?', 0);");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?', 0);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '1', 0);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '2', 1);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '1', 1);");
@@ -59,15 +64,16 @@ public class Database {
     private List<String> postgresqlLauseet() {
         ArrayList<String> lista = new ArrayList<>();
 
-        lista.add("CREATE TABLE Kysymys (id SERIAL PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000));");
+        lista.add("CREATE TABLE Kysymys (id SERIAL PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000), piilotettu boolean);");
         lista.add("CREATE TABLE Vastaus (id SERIAL PRIMARY KEY, kysymys_id integer, vastausteksti varchar(1000), oikein boolean, FOREIGN KEY (kysymys_id) REFERENCES Kysymys(id));");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?');");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?');");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?', 1);");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?', 1);");
+        /*
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '1', 0);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '2', 1);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '1', 1);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '2', 0);");
-
+        */
         return lista;
     }
 }
