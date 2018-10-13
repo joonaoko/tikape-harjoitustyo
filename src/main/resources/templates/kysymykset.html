@@ -24,10 +24,30 @@
         <br/>
         <h3>Luo uusi kysymys</h3>
         <form method="POST" action="/kysymykset">
-            Kurssi: <input type="text" name="kurssi" maxlength="255"/><br/>
-            Aihe: <input type="text" name="aihe" maxlength="255"/><br/>
-            Kysymysteksti: <input type="text" name="kysymysteksti" maxlength="1000" required="required"/><br/>
-            <input type="submit" value="Luo kysymys"/>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Kurssi: </td>
+                        <td>
+                            <input type="text" name="kurssi" maxlength="255"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aihe: </td>
+                        <td>
+                            <input type="text" name="aihe" maxlength="255"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kysymysteksti: </td>
+                        <td>
+                            <input type="text" name="kysymysteksti" maxlength="1000" required="required"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Luo kysymys"/><br/>
+            (Huom. kysymykset joilla ei ole vähintään 1 oikea vastaus piilotetaan)
         </form>
     </body>
 </html>
