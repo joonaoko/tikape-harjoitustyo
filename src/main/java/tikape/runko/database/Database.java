@@ -74,7 +74,7 @@ public class Database {
         System.out.println("Vastaus lisätty");
         lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?=', true);");
         System.out.println("Kysymykseen lisätty kysymys");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?=', 1);");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?=', true);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '1', false);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '2', true);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '1', true);");
