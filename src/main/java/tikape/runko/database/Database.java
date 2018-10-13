@@ -63,9 +63,6 @@ public class Database {
     
     private List<String> postgresqlLauseet() {
         ArrayList<String> lista = new ArrayList<>();
-        lista.add("DROP TABLE Kysymys CASCADE;");
-        lista.add("DROP TABLE Vastaus CASCADE;");
-
         lista.add("CREATE TABLE Kysymys (id SERIAL PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000), piilotettu boolean);");
         lista.add("CREATE TABLE Vastaus (id SERIAL PRIMARY KEY, kysymys_id integer, vastausteksti varchar(1000), oikein boolean, FOREIGN KEY (kysymys_id) REFERENCES Kysymys(id));");
         lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1=?', false);");
