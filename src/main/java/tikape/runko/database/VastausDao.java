@@ -140,7 +140,12 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         stmt.setInt(1, key);
 
         ResultSet rs = stmt.executeQuery();
-        Integer kysymysid = rs.getInt("kysymys_id");
+        
+        Integer kysymysid = null;
+        
+        while (rs.next()) {
+            kysymysid = rs.getInt("kysymys_id");
+        }
         rs.close();
         stmt.close();
         

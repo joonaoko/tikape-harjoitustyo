@@ -65,16 +65,11 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
         lista.add("DROP TABLE Kysymys CASCADE;");
         lista.add("DROP TABLE Vastaus CASCADE;");
-        
-        System.out.println("Vanhat tablet tuhottu");
 
         lista.add("CREATE TABLE Kysymys (id SERIAL PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000), piilotettu boolean);");
-        System.out.println("Kysymys lisätty");
         lista.add("CREATE TABLE Vastaus (id SERIAL PRIMARY KEY, kysymys_id integer, vastausteksti varchar(1000), oikein boolean, FOREIGN KEY (kysymys_id) REFERENCES Kysymys(id));");
-        System.out.println("Vastaus lisätty");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?=', false);");
-        System.out.println("Kysymykseen lisätty kysymys");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?=', false);");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1=?', false);");
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1=?', false);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '1', false);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '2', true);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '1', true);");
