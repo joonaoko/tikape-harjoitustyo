@@ -63,8 +63,8 @@ public class Database {
     
     private List<String> postgresqlLauseet() {
         ArrayList<String> lista = new ArrayList<>();
-        lista.add("DROP TABLE Kysymys;");
-        lista.add("DROP TABLE Vastaus;");
+        lista.add("DROP TABLE Kysymys CASCADE;");
+        lista.add("DROP TABLE Vastaus CASCADE;");
         
         System.out.println("Vanhat tablet tuhottu");
 
