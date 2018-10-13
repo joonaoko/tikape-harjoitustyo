@@ -32,6 +32,9 @@ public class Database {
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
+            
+            st.executeUpdate("DROP TABLE Kysymys;");
+            st.executeUpdate("DROP TABLE Vastaus;");
 
             // suoritetaan komennot
             for (String lause : lauseet) {
