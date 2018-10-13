@@ -32,9 +32,6 @@ public class Database {
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
-            
-            st.executeUpdate("DROP TABLE Kysymys;");
-            st.executeUpdate("DROP TABLE Vastaus;");
 
             // suoritetaan komennot
             for (String lause : lauseet) {
@@ -66,12 +63,14 @@ public class Database {
     
     private List<String> postgresqlLauseet() {
         ArrayList<String> lista = new ArrayList<>();
+        lista.add("DROP TABLE Kysymys;");
+        lista.add("DROP TABLE Vastaus;");
 
         lista.add("CREATE TABLE Kysymys (id SERIAL PRIMARY KEY, kurssi varchar(255), aihe varchar(255), kysymysteksti varchar(1000), piilotettu boolean);");
         lista.add("CREATE TABLE Vastaus (id SERIAL PRIMARY KEY, kysymys_id integer, vastausteksti varchar(1000), oikein boolean, FOREIGN KEY (kysymys_id) REFERENCES Kysymys(id));");
         lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Pluslaskut', '1+1?', 1);");
-        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?', 1);");
         /*
+        lista.add("INSERT INTO Kysymys (kurssi, aihe, kysymysteksti, piilotettu) VALUES ('Ekaluokan Matikka', 'Miinuslaskut', '1-1?', 1);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '1', 0);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (1, '2', 1);");
         lista.add("INSERT INTO Vastaus (kysymys_id, vastausteksti, oikein) VALUES (2, '1', 1);");
