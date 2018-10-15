@@ -7,6 +7,7 @@ public class Kysymys {
     private String aihe;
     private String kysymysteksti;
     private Boolean piilotettu;
+    private String piilotettuString;
     
     public Kysymys(String kurssi, String aihe, String kysymysteksti) {
         this.kurssi = kurssi;
@@ -57,5 +58,10 @@ public class Kysymys {
     
     public Boolean getPiilotettu() {
         return this.piilotettu;
+    }
+    
+    public String getPiilotettuString() {
+        if (piilotettu) return "(Piilotettu)";
+        else return "";
     }
 }

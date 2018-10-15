@@ -17,15 +17,6 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
     public KysymysDao(Database database) {
         this.database = database;
     }
-    /*
-    public static Connection getConnection() throws SQLException {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        if (dbUrl != null && dbUrl.length() > 0) {
-            return DriverManager.getConnection(dbUrl);
-        }
-        return DriverManager.getConnection("jdbc:sqlite:db/database.db");
-    }
-    */
 
     @Override
     public Kysymys findOne(Integer key) throws SQLException {
@@ -58,7 +49,7 @@ public class KysymysDao implements Dao<Kysymys, Integer> {
     public List<Kysymys> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys ORDER BY piilotettu, kurssi, aihe");
 
         ResultSet rs = stmt.executeQuery();
         List<Kysymys> kysymykset = new ArrayList<>();

@@ -17,16 +17,6 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     public VastausDao(Database database) {
         this.database = database;
     }
-    
-    /*
-    public static Connection getConnection() throws SQLException {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        if (dbUrl != null && dbUrl.length() > 0) {
-            return DriverManager.getConnection(dbUrl);
-        }
-        return DriverManager.getConnection("jdbc:sqlite:db/database.db");
-    }
-    */
 
     @Override
     public Vastaus findOne(Integer key) throws SQLException {

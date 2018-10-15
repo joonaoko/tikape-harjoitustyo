@@ -5,6 +5,7 @@ public class Vastaus {
     private Integer id;
     private Integer kysymysid;
     private String vastausteksti;
+    private String vastausString;
     boolean oikein;
     
     public Vastaus(Integer id, Integer kysymysid, String vastausteksti, Boolean oikein) {
@@ -42,5 +43,10 @@ public class Vastaus {
     
     public boolean getOikein() {
         return oikein;
+    }
+    
+    public String getVastausString() {
+        if (oikein) return vastausteksti+" (Oikein)";
+        else return vastausteksti+" (Väärin)";
     }
 }
